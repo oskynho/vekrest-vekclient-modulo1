@@ -2,9 +2,9 @@ name: CI-CD Spring Boot with SonarQube and Docker Hub
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "main" ]
 
 jobs:
   vulnerabilities-scan:
@@ -48,7 +48,7 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # Necessário para análise completa no SonarQube
+          fetch-depth: 0  
 
       - name: Configurar Java 17
         uses: actions/setup-java@v4
@@ -57,15 +57,37 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      # Build + Testes
       - name: Build com Maven (testes inclusos)
         run: mvn -B clean verify
 
-      # Sonar Scanner para projetos Maven
       - name: Análise no SonarQube
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn sonar:sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+
+      - name: Check SonarQube results
+        run: |
+          SONAR_URL="https://sonarcloud.io/api/measures/component?componentKey=vekclient&branch=main"
+          CODE_SMELL=$(curl -s -u ${{ secrets.SONAR_TOKEN }}: "$SONAR_URL&metricKeys=code_smells" | jq -r '.component.measures[0].value')
+          if [ "$CODE_SMELL" -gt 10 ]; then
+            echo "Aplicação com mais de 10 code smell."
+            exit 1
+          fi
+          DUPLICATED=$(curl -s -u ${{ secrets.SONAR_TOKEN }}: "$SONAR_URL&metricKeys=duplicated_lines_density" | jq -r '.component.measures[0].value')
+          if (( $(echo "$DUPLICATED > 14.0" | bc -l) )); then
+            echo "Aplicação com mais de 3% de duplicação de código."
+            exit 1
+          fi
+          NUM_BUGS=$(curl -s -u ${{ secrets.SONAR_TOKEN }}: "$SONAR_URL&metricKeys=bugs" | jq -r '.component.measures[0].value')
+          if [ "$NUM_BUGS" -gt 2 ]; then
+            echo "Aplicação contem mais de 2 bugs."
+            exit 1
+          fi
+          COVER=$(curl -s -u ${{ secrets.SONAR_TOKEN }}: "$SONAR_URL&metricKeys=coverage" | jq -r '.component.measures[0].value')
+          if (( $(echo "$COVER < 80.0" | bc -l) )); then
+            echo "Aplicação com menos de 80% de coverage."
+            exit 1
+          fi
 
   docker-publish:
     name: Build & Push Docker Image
