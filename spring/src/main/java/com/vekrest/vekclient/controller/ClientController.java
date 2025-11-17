@@ -26,8 +26,11 @@ public class ClientController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/vekclient/client")
-    public ClientListResponse getAll(Pageable pageable) {
-        return ClientControllerAdapter.cast(repository.getAll(pageable));
+    public ClientListResponse getAll(
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "page", defaultValue = "0") int page
+    ) {
+        return ClientControllerAdapter.cast(repository.getAll(Pageable.ofSize(size).withPage(page)));
     }
 
     @ResponseStatus(HttpStatus.CREATED)

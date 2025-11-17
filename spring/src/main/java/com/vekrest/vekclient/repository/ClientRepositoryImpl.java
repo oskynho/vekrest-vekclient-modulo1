@@ -28,7 +28,7 @@ public class ClientRepositoryImpl implements ClientRepository {
     @Override
     public Page<Client> getAll(Pageable pageable) {
         try {
-            Page<ClientOrm> clientsOrm =  repository.findAll(pageable);
+            Page<ClientOrm> clientsOrm =  repository.findAllByStatusAtivo(pageable);
 
             return clientsOrm.map(ClientRepositoryAdapter::cast);
         } catch (Exception ex) {
