@@ -69,21 +69,28 @@ jobs:
         run: |
           SONAR_URL="https://sonarcloud.io/api/measures/component?componentKey=vekclient&branch=main"
           CODE_SMELL=$(curl -s -u ${{ secrets.SONAR_TOKEN }}: "$SONAR_URL&metricKeys=code_smells" | jq -r '.component.measures[0].value')
+          echo.
+          echo "Code Smell: ${CODE_SMELL}%" 
           if [ "$CODE_SMELL" -gt 10 ]; then
             echo "Aplicação com mais de 10 code smell."
             exit 1
           fi
           DUPLICATED=$(curl -s -u ${{ secrets.SONAR_TOKEN }}: "$SONAR_URL&metricKeys=duplicated_lines_density" | jq -r '.component.measures[0].value')
+          echo.
+          echo "Código duplicado: ${DUPLICATED}%" 
           if (( $(echo "$DUPLICATED > 14.0" | bc -l) )); then
             echo "Aplicação com mais de 3% de duplicação de código."
             exit 1
           fi
           NUM_BUGS=$(curl -s -u ${{ secrets.SONAR_TOKEN }}: "$SONAR_URL&metricKeys=bugs" | jq -r '.component.measures[0].value')
+          echo.
+          echo "Bugs: ${NUM_BUGS}%" 
           if [ "$NUM_BUGS" -gt 2 ]; then
             echo "Aplicação contem mais de 2 bugs."
             exit 1
           fi
           COVER=$(curl -s -u ${{ secrets.SONAR_TOKEN }}: "$SONAR_URL&metricKeys=coverage" | jq -r '.component.measures[0].value')
+          echo.
           echo "Cobertura da aplicação: ${COVER}%" 
           if (( $(echo "$COVER < 80.0" | bc -l) )); then
             echo "Aplicação com menos de 80% de coverage."
