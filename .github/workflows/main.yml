@@ -114,5 +114,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USER }}/vekclient:latest
-            ${{ secrets.DOCKERHUB_USER }}/vekclient:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USER }}/vekrest-vekclient:latest
+            ${{ secrets.DOCKERHUB_USER }}/vekrest-vekclient:${{ github.sha }}
