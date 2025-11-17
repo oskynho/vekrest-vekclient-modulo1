@@ -8,7 +8,7 @@ on:
 
 jobs:
   vulnerabilities-scan:
-    name: Scan for Vulnerabilities
+    name: Scan for Vulnerabilities (Security)
     runs-on: ubuntu-latest
   
     steps:
@@ -91,7 +91,7 @@ jobs:
           fi
 
   docker-publish:
-    name: Build & Push Docker Image
+    name: Build & Push Docker Image (Deploy)
     needs: build-and-sonar
     runs-on: ubuntu-latest
 
