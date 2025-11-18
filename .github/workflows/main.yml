@@ -1,4 +1,4 @@
-name: CI-CD Spring Boot Java with Trivy, SonarQube and Docker Hub
+name: CI-CD Spring Boot Java with Trivy, SonarCloud and Docker Hub
 
 on:
   push:
@@ -40,7 +40,7 @@ jobs:
            .
            
   build-and-sonar:
-    name: Build & SonarQube Analysis (Quality)
+    name: Build & SonarCloud Analysis (Quality)
     needs: vulnerabilities-scan
     runs-on: ubuntu-latest
 
