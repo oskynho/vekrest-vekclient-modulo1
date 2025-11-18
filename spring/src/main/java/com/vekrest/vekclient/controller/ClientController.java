@@ -1,36 +1,32 @@
 package com.vekrest.vekclient.controller;
 
 import com.vekrest.entity.Client;
-import com.vekrest.repository.ClientRepository;
+import com.vekrest.entity.Pagination;
 import com.vekrest.service.ClientService;
 import com.vekrest.vekclient.controller.adapter.ClientControllerAdapter;
 import com.vekrest.vekclient.controller.dto.request.ClientRequest;
-import com.vekrest.vekclient.controller.dto.response.ClientListResponse;
 import com.vekrest.vekclient.controller.dto.response.ClientResponse;
 import jakarta.validation.Valid;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/vekrest")
 public class ClientController {
-    private final ClientRepository repository;
     private final ClientService service;
 
-    public ClientController(ClientRepository repository, ClientService service) {
-        this.repository = repository;
+    public ClientController(ClientService service) {
         this.service = service;
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/vekclient/client")
-    public ClientListResponse getAll(
-            @RequestParam(value = "size", defaultValue = "10") int size,
-            @RequestParam(value = "page", defaultValue = "0") int page
+    public Pagination<Client> getAll(
+            @RequestParam(value = "page", defaultValue = "0") int pageNumber,
+            @RequestParam(value = "size", defaultValue = "10") int pageSize
     ) {
-        return ClientControllerAdapter.cast(repository.getAll(Pageable.ofSize(size).withPage(page)));
+        return service.getAll(pageNumber, pageSize);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -44,7 +40,7 @@ public class ClientController {
     @GetMapping("/vekclient/client/{id}")
     @Cacheable(value = "frete-id-cache", key = "#id")
     public ClientResponse getById(@PathVariable("id") String id) {
-        return ClientControllerAdapter.cast(repository.findById(id));
+        return ClientControllerAdapter.cast(service.findById(id));
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -62,6 +58,6 @@ public class ClientController {
     @ResponseStatus(HttpStatus.OK)
     @DeleteMapping("/vekclient/client/{id}")
     public void delete(@PathVariable("id") String id) {
-        repository.delete(id);
+        service.delete(id);
     }
 }

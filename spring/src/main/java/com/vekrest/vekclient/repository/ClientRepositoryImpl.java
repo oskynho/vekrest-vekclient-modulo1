@@ -1,6 +1,7 @@
 package com.vekrest.vekclient.repository;
 
 import com.vekrest.entity.Client;
+import com.vekrest.entity.Pagination;
 import com.vekrest.exception.InternalServerException;
 import com.vekrest.exception.NotFoundException;
 import com.vekrest.repository.ClientRepository;
@@ -26,11 +27,11 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
 
     @Override
-    public Page<Client> getAll(Pageable pageable) {
+    public Pagination<Client> getAll(final int pageNumber, final int pageSize) {
         try {
-            Page<ClientOrm> clientsOrm =  repository.findAllByStatusAtivo(pageable);
+            Page<ClientOrm> pageClientOrm =  repository.findAllByStatusAtivo(Pageable.ofSize(pageSize).withPage(pageNumber));
 
-            return clientsOrm.map(ClientRepositoryAdapter::cast);
+            return ClientRepositoryAdapter.cast(pageClientOrm);
         } catch (Exception ex) {
             LOG.error("Erro ao recuperar clientes: {} o erro aconteceu na data/hora: {}",
                     ex.getMessage(), LocalDateTime.now());

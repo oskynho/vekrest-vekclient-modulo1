@@ -2,8 +2,10 @@ package com.vekrest.vekclient.repository.adapter;
 
 import com.vekrest.entity.Address;
 import com.vekrest.entity.Client;
+import com.vekrest.entity.Pagination;
 import com.vekrest.vekclient.repository.orm.AddressOrm;
 import com.vekrest.vekclient.repository.orm.ClientOrm;
+import org.springframework.data.domain.Page;
 
 public class ClientRepositoryAdapter {
     private ClientRepositoryAdapter() {
@@ -40,6 +42,16 @@ public class ClientRepositoryAdapter {
         return new Address(
                 addressOrm.cep(),
                 addressOrm.state()
+        );
+    }
+
+    public static Pagination<Client> cast(Page<ClientOrm> pageClientOrm) {
+        return new Pagination<Client>(
+                pageClientOrm.getContent().stream().map(ClientRepositoryAdapter::cast).toList(),
+                pageClientOrm.getPageable().getPageNumber(),
+                pageClientOrm.getPageable().getPageSize(),
+                pageClientOrm.getTotalElements(),
+                pageClientOrm.getTotalPages()
         );
     }
 }
