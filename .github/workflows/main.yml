@@ -20,7 +20,7 @@ jobs:
        uses: actions/setup-java@v3
        with:
          java-version: '17'
-         distribution: 'zulu'
+         distribution: 'corretto'
     
      - name: Build project (without tests)
        run: mvn clean install -DskipTests
