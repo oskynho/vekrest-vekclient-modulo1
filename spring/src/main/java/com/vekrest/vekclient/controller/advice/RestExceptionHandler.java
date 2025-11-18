@@ -29,7 +29,7 @@ public class RestExceptionHandler {
     public ErrorResponse handleInternalServerError(
             Exception ex,
             HttpServletRequest req) {
-        LOG.error("Erro não mapeado {}", ex);
+        LOG.error("HANDLE ERROR ON INTERNAL_SERVER_ERROR", ex);
         return new ErrorResponse(
                 LocalDateTime.now(),
                 req.getServletPath(),
@@ -59,7 +59,7 @@ public class RestExceptionHandler {
     public ErrorResponse handleNoResourceFoundException(
             NoResourceFoundException ex,
             HttpServletRequest req) {
-        LOG.error("HANDLE ERROR ON NO_RESOURCE_FOUND");
+        LOG.error("HANDLE ERROR ON NO_RESOURCE_FOUND", ex);
         return new ErrorResponse(
                 LocalDateTime.now(),
                 req.getServletPath(),
@@ -74,7 +74,7 @@ public class RestExceptionHandler {
     public ErrorResponse handleBadRequest(
             BadRequestException ex,
             HttpServletRequest req) {
-        LOG.error("HANDLE ERROR ON BAD_REQUEST");
+        LOG.error("HANDLE ERROR ON BAD_REQUEST", ex);
         return new ErrorResponse(
                 LocalDateTime.now(),
                 req.getServletPath(),
@@ -107,7 +107,7 @@ public class RestExceptionHandler {
     public ErrorResponse handleHttpMediaTypeNotAcceptableException(
             BadRequestException ex,
             HttpServletRequest req) {
-        LOG.error("HANDLE ERROR ON BAD_REQUEST");
+        LOG.error("HANDLE ERROR ON BAD_REQUEST", ex);
         return new ErrorResponse(
                 LocalDateTime.now(),
                 req.getServletPath(),
