@@ -134,7 +134,7 @@ jobs:
 
   github-packages-maven-publish:
     name: Publish Maven Image (Github Pages)
-    needs: docker-publish
+    needs: build-and-sonar
     runs-on: ubuntu-latest
     permissions:
       contents: read
