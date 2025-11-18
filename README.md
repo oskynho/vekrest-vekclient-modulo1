@@ -124,6 +124,9 @@ mvn clean package -DskipTests
 
 # Agora faça deploy no Docker local:
 docker build -t vek03/vekrest-vekclient:latest .
+
+# Descomente as últimas linhas do docker-compose.yml (relacionadas ao vekclient) e rode:
+docker-compose up -d
 ```
 
 > Ou execute o script .bat (executar_tudo.bat) na pasta .commands para automatizar o processo.
