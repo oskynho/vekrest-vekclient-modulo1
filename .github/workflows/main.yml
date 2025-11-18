@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - 'v*'
+      - 'v*.*'
+      - 'v*.*.*'
+
+  pull_request:
+    branches: ['main']
+
   workflow_dispatch:
 
 env:
