@@ -2,15 +2,7 @@ name: VekClient CI/CD Workflow
 
 on:
   push:
-    tags:
-      - 'v*'
-      - 'v*.*'
-      - 'v*.*.*'
-
-  pull_request:
-    branches: ['main']
-
-  workflow_dispatch:
+    tags: ['v*', 'v*.*', 'v*.*.*']
 
 env:
   REGISTRY: ghcr.io
