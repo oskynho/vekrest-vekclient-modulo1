@@ -1,4 +1,4 @@
-name: CI-CD Spring Boot Java with Trivy, SonarCloud and Docker Hub
+name: VekClient CI/CD Workflow
 
 on:
   push:
@@ -9,14 +9,14 @@ on:
 
 jobs:
   vulnerabilities-scan:
-    name: Scan for Vulnerabilities (Trivy)
+    name: Trivy Vulnerabilities Scan (Security)
     runs-on: ubuntu-latest
     permissions:
       contents: read
   
     steps:
      - name: Checkout code
-       uses: actions/checkout@v3
+       uses: actions/checkout@v4
     
      - name: Set up JDK 17
        uses: actions/setup-java@v4
@@ -24,14 +24,14 @@ jobs:
          java-version: '17'
          distribution: 'corretto'
     
-     - name: Build project (without tests)
+     - name: Build with Maven (without tests)
        run: mvn clean install -DskipTests
     
      - name: Install Trivy
        run: |
          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
     
-     - name: Scan for vulnerabilities in dependencies (Maven)
+     - name: Scan for vulnerabilities in dependencies (Maven & Trivy)
        run: |
          trivy fs \
            --scanners vuln \
@@ -50,7 +50,7 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout código
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  
@@ -62,15 +62,15 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Build com Maven (testes inclusos)
+      - name: Build with Maven (with tests)
         run: mvn -B clean verify
 
-      - name: Análise no SonarQube
+      - name: SonarCloud Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn sonar:sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
 
-      - name: Check SonarQube results
+      - name: Check SonarCloud results
         run: |
           SONAR_URL="https://sonarcloud.io/api/measures/component?componentKey=vekclient&branch=main"
           CODE_SMELL=$(curl -s -u ${{ secrets.SONAR_TOKEN }}: "$SONAR_URL&metricKeys=code_smells" | jq -r '.component.measures[0].value')
@@ -103,26 +103,26 @@ jobs:
           fi
 
   docker-publish:
-    name: Push Docker Image (Docker Hub)
+    name: Publish Docker Image (DockerHub)
     needs: build-and-sonar
     runs-on: ubuntu-latest
     permissions:
       contents: read
 
     steps:
-      - name: Checkout código
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Login no Docker Hub
+      - name: Login in DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build Projeto
+      - name: Build with Maven (without tests)
         run: mvn clean install -DskipTests
 
-      - name: Build e Push da imagem Docker
+      - name: Build & Pushish to DockerHub
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -133,7 +133,7 @@ jobs:
             ${{ secrets.DOCKERHUB_USER }}/vekrest-vekclient:${{ github.sha }}
 
   github-packages-maven-publish:
-    name: Push Maven Image (Github Pages)
+    name: Publish Maven Image (Github Pages)
     needs: docker-publish
     runs-on: ubuntu-latest
     permissions:
@@ -141,7 +141,9 @@ jobs:
       packages: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -150,7 +152,7 @@ jobs:
           server-id: github 
           settings-path: ${{ github.workspace }}
   
-      - name: Build with Maven
+      - name: Build with Maven  (with tests)
         run: mvn -B package --file pom.xml
   
       - name: Publish to GitHub Packages Apache Maven
