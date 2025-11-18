@@ -211,7 +211,7 @@ jobs:
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
 
   create-release:
-    name: Criar Release e Gerar Changelog
+    name: Create Release & Generate Changelog
     needs: [dockerhub-publish, github-packages-maven-publish, github-packages-docker-publish]
     runs-on: ubuntu-latest
     permissions:
@@ -223,7 +223,7 @@ jobs:
         with:
           fetch-depth: 0 
 
-      - name: Gerar Corpo da Release com Logs
+      - name: Generate Release Body with Logs
         id: generate_changelog
         run: |
           CURRENT_TAG=${{ github.ref_name }}
@@ -250,7 +250,7 @@ jobs:
             echo "EOF" >> $GITHUB_ENV
           fi
           
-      - name: Criar GitHub Release
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
