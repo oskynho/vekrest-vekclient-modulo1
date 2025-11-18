@@ -156,6 +156,15 @@ mvn clean install sonar:sonar -Dsonar.token={TOKEN_SONAR}
 
 5️⃣ Deploy da Release no **Github** (Release)
 
+### Para executar a Esteira pelo trigger:
+```bash
+# Exemplo: Cria a tag
+git tag <version>
+
+# Envia a tag para o repositório remoto
+git push origin <version>
+```
+
 ---
 
 ## 💡 Observações Importantes
