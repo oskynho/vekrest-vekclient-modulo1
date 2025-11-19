@@ -24,6 +24,7 @@ Ele foi desenvolvido como a entrega do 1° módulo do projeto completo. Para o 1
             ├── 📁 configuration/           ← Arquivos de Injeção de Dependência (@Bean)
             ├── 📁 controller/              ← Controllers Rest HTTP
             ├── 📁 repository/              ← Implementação da Lógica de persistência de dados
+            📄 VekclientApplication.java    ← Classe principal do Spring Boot
     ├── 📁 [...]/resources                  ← Variáveis de ambiente
 ├── 📄 docker-compose.yml                   ← Configuração dos containers utilizados
 ├── 📄 Dockerfile                           ← Configuração para build e deploy no Docker
