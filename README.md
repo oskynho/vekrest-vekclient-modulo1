@@ -4,6 +4,11 @@ Este é o cliente do projeto VekRest, um CRUD de clientes/pessoas. Este projeto 
 
 Ele foi desenvolvido como a entrega do 1° módulo do projeto completo. Para o 1° módulo, temos apenas esta aplicação cliente.
 
+## 🧩 PARTES DO MÓDULO 1
+| Aplicação      | Descrição                                      | Link             |
+|----------------|------------------------------------------------|------------------|
+| VekClient      | Aplicação de CRUD de Pessoa                    | Este Repositório |
+
 > Este projeto não depende de nenhuma outra aplicação para funcionar corretamente
 
 ---
