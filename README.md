@@ -1,8 +1,6 @@
 # 🧬 Projeto VekRest - VekClient - Módulo 1
 
-Este é o cliente do projeto VekRest, um CRUD de clientes/pessoas. Este projeto utiliza conteinerização em **Docker**, persistência com **MongoDB**, cache com **Redis**, build **Maven**, logs com **OpenSearch** e **Graylog** e **Spring Boot Java**.  
-
-Ele foi desenvolvido como a entrega do 1° módulo do projeto completo. Para o 1° módulo, temos apenas esta aplicação cliente.
+Cliente VekRest: CRUD em Spring Boot com Docker, MongoDB, Redis, OpenSearch e Graylog. **Módulo 1 / CRUD de Pessoas**
 
 ## 🧩 PARTES DO MÓDULO 1
 | Aplicação      | Descrição                                      | Link             |
