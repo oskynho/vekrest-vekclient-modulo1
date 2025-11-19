@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.vekrest</groupId>
 	<artifactId>vekclient</artifactId>
-	<version>v1.0.3</version>
+	<version>v1.0.0</version>
 	<packaging>pom</packaging>
 	<name>vekclient</name>
 	<description>VekMódulo Cliente de cadastro de Pessoas</description>
