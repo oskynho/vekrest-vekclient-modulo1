@@ -45,7 +45,14 @@ docker pull vek03/vekrest-vekclient:latest
 
 2️⃣ Para rodar o container localmente:
 ```bash
-docker run --rm -p 8082:8082 --name vekclient -e SPRING_PROFILES_ACTIVE=local vek03/vekrest-vekclient:latest
+docker run -d \
+    --name vekclient \ 
+    -e SERVER_PORT=8082 \
+    -e REDIS_HOST=redis \
+    -e REDIS_PORT=6379 \
+    -e MONGODB_URI="mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000" \
+    -p 8082:8082 \
+    vek03/vekrest-vekclient:latest
 ```
 
 3️⃣ Alternativamente, você pode adicionar o serviço no seu docker-compose.yml local, descomentando ou adicionando o seguinte trecho:
