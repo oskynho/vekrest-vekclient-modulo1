@@ -6,6 +6,56 @@ Ele foi desenvolvido como a entrega do 1° módulo do projeto completo. Para o 1
 
 ---
 
+## ✨ Imagem Docker (DockerHub)
+
+> A imagem desta aplicação é atualizada a cada nova tag ou pull request na [branch main](https://github.com/VekRest/vekrest-vekclient-modulo1/tree/main)
+
+> Link da imagem no DockerHub: [vek03/vekrest-vekclient:latest](https://hub.docker.com/repository/docker/vek03/vekrest-vekclient)
+
+## 🐳 Como rodar o container
+
+1️⃣ Para baixar a imagem do Docker Hub:
+```bash
+docker pull vek03/vekrest-vekclient:latest
+```
+
+2️⃣ Para rodar o container localmente:
+```bash
+docker run --rm -p 8082:8082 --name vekclient -e SPRING_PROFILES_ACTIVE=local vek03/vekrest-vekclient:latest
+```
+
+3️⃣ Alternativamente, você pode adicionar o serviço no seu docker-compose.yml local, descomentando ou adicionando o seguinte trecho:
+```bash
+services:
+  vekclient:
+    image: vekrest/vekclient:latest
+    hostname: vekclient
+    container_name: vekclient
+    environment:
+      SERVER_PORT: 8082
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      MONGODB_URI: mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000
+    ports:
+        - "8082:8082"
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      opensearch:
+        condition: service_healthy
+      graylog:
+        condition: service_started
+      redis:
+        condition: service_healthy
+```
+
+4️⃣ Depois de adicionar o serviço em docker-compose.yml, suba os containers:
+```bash
+docker-compose up -d
+```
+
+---
+
 ## 📘 Estrutura do Projeto
 
 ```
