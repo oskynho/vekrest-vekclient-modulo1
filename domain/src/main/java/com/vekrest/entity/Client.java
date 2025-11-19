@@ -8,5 +8,4 @@ public record Client(
         LocalDate birth,
         Address address,
         Status status
-) {
-}
+) {}

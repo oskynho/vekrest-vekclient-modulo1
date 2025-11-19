@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <appender name="GRAYLOG" class="de.siegmar.logbackgelf.GelfUdpAppender">
-        <graylogHost>localhost</graylogHost>
+        <graylogHost>localhost</graylogHost> <!-- Adjust the Graylog server host as needed to (graylog/localhost) -->
         <graylogPort>12201</graylogPort>
         <hostName>VEKREST</hostName>
         <facility>VekClient</facility>

@@ -1,15 +1,14 @@
 package com.vekrest.repository;
 
 import com.vekrest.entity.Client;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.vekrest.entity.Pagination;
 
 public interface ClientRepository {
-    Page<Client> getAll(Pageable pageable);
+    Pagination<Client> getAll(final int pageNumber, final int pageSize);
 
     Client save(Client client);
 
-    Client findById(String id);
+    Client findById(final String id);
 
-    void delete(String id);
+    void delete(final String id);
 }

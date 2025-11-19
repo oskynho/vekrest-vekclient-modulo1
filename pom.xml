@@ -16,10 +16,18 @@
 	<description>VekMódulo Cliente de cadastro de Pessoas</description>
 	<url/>
 	<licenses>
-		<license/>
+		<license>
+				<name>GPL-3.0</name>
+				<url>https://www.gnu.org/licenses/gpl-3.0.en.html</url>
+				<distribution>repo</distribution>
+		</license>
 	</licenses>
 	<developers>
-		<developer/>
+		<developer>
+			<id>devVekRest</id>
+			<name>Victor Novaes Cardoso (Vek)</name>
+			<email>victorncardoso1912@gmail.com</email>
+		</developer>
 	</developers>
 	<modules>
 		<module>domain</module>

@@ -6,6 +6,7 @@ import com.vekrest.vekclient.controller.dto.response.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,75 +27,60 @@ public class RestExceptionHandler {
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     @ExceptionHandler({InternalServerException.class, Exception.class})
     public ErrorResponse handleInternalServerError(
-            Exception exception,
-            HttpServletRequest request) {
-        LOG.error("Erro não mapeado {}", exception);
+            Exception ex,
+            HttpServletRequest req) {
+        LOG.error("HANDLE ERROR ON INTERNAL_SERVER_ERROR", ex);
         return new ErrorResponse(
                 LocalDateTime.now(),
-                request.getServletPath(),
+                req.getServletPath(),
                 INTERNAL_SERVER_ERROR.value(),
                 INTERNAL_SERVER_ERROR.getReasonPhrase(),
-                exception.getMessage());
+                ex.getMessage());
     }
 
     @ResponseBody
     @ResponseStatus(NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
     public ErrorResponse handleNotFoundError(
-            NotFoundException exception,
-            HttpServletRequest request) {
-        LOG.info("HANDLE ERROR ON NOT_FOUND");
+            NotFoundException ex,
+            HttpServletRequest req) {
+        LOG.error("HANDLE ERROR ON NOT_FOUND", ex);
         return new ErrorResponse(
                 LocalDateTime.now(),
-                request.getServletPath(),
+                req.getServletPath(),
                 NOT_FOUND.value(),
                 NOT_FOUND.getReasonPhrase(),
-                exception.getMessage());
+                ex.getMessage());
     }
 
     @ResponseBody
     @ResponseStatus(NOT_FOUND)
     @ExceptionHandler(NoResourceFoundException.class)
     public ErrorResponse handleNoResourceFoundException(
-            NotFoundException exception,
-            HttpServletRequest request) {
-        LOG.info("HANDLE ERROR ON NO_RESOURCE_FOUND");
+            NoResourceFoundException ex,
+            HttpServletRequest req) {
+        LOG.error("HANDLE ERROR ON NO_RESOURCE_FOUND", ex);
         return new ErrorResponse(
                 LocalDateTime.now(),
-                request.getServletPath(),
+                req.getServletPath(),
                 NOT_FOUND.value(),
                 NOT_FOUND.getReasonPhrase(),
-                exception.getMessage());
+                ex.getMessage());
     }
 
     @ResponseBody
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(BadRequestException.class)
     public ErrorResponse handleBadRequest(
-            BadRequestException exception,
-            HttpServletRequest request) {
-        LOG.info("HANDLE ERROR ON BAD_REQUEST");
+            BadRequestException ex,
+            HttpServletRequest req) {
+        LOG.error("HANDLE ERROR ON BAD_REQUEST", ex);
         return new ErrorResponse(
                 LocalDateTime.now(),
-                request.getServletPath(),
+                req.getServletPath(),
                 BAD_REQUEST.value(),
                 BAD_REQUEST.getReasonPhrase(),
-                exception.getMessage());
-    }
-
-    @ResponseBody
-    @ResponseStatus(UNPROCESSABLE_ENTITY)
-    @ExceptionHandler(UnprocessableEntityException.class)
-    public ErrorResponse handleUnprocessableEntity(
-            UnprocessableEntityException exception,
-            HttpServletRequest request) {
-        LOG.info("HANDLE ERROR ON UNPROCESSABLE_ENTITY");
-        return new ErrorResponse(
-                LocalDateTime.now(),
-                request.getServletPath(),
-                UNPROCESSABLE_ENTITY.value(),
-                UNPROCESSABLE_ENTITY.getReasonPhrase(),
-                exception.getMessage());
+                ex.getMessage());
     }
 
     @ResponseBody
@@ -102,16 +88,31 @@ public class RestExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
-            HttpServletRequest request) {
-        LOG.info("HANDLE ERROR ON METHOD_ARGUMENT_NOT_VALID");
+            HttpServletRequest req) {
+        LOG.error("HANDLE ERROR ON METHOD_ARGUMENT_NOT_VALID", ex);
         List<String> errors = new ArrayList<>();
         ex.getBindingResult().getAllErrors()
                 .forEach(v -> errors.add(v.getDefaultMessage()));
         return new ErrorResponse(
                 LocalDateTime.now(),
-                request.getServletPath(),
+                req.getServletPath(),
                 BAD_REQUEST.value(),
                 BAD_REQUEST.getReasonPhrase(),
                 errors.toString());
+    }
+
+    @ResponseBody
+    @ResponseStatus(NOT_ACCEPTABLE)
+    @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
+    public ErrorResponse handleHttpMediaTypeNotAcceptableException(
+            BadRequestException ex,
+            HttpServletRequest req) {
+        LOG.error("HANDLE ERROR ON BAD_REQUEST", ex);
+        return new ErrorResponse(
+                LocalDateTime.now(),
+                req.getServletPath(),
+                BAD_REQUEST.value(),
+                BAD_REQUEST.getReasonPhrase(),
+                ex.getMessage());
     }
 }

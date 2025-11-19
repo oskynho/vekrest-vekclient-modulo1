@@ -1,6 +1,7 @@
 package com.vekrest.vekclient.repository;
 
 import com.vekrest.entity.Client;
+import com.vekrest.entity.Pagination;
 import com.vekrest.exception.InternalServerException;
 import com.vekrest.exception.NotFoundException;
 import com.vekrest.repository.ClientRepository;
@@ -26,14 +27,15 @@ public class ClientRepositoryImpl implements ClientRepository {
     }
 
     @Override
-    public Page<Client> getAll(Pageable pageable) {
+    public Pagination<Client> getAll(final int pageNumber, final int pageSize) {
         try {
-            Page<ClientOrm> clientsOrm =  repository.findAllByStatusAtivo(pageable);
+            LOG.info("Recuperando todos os clientes na data/hora: {}", LocalDateTime.now());
 
-            return clientsOrm.map(ClientRepositoryAdapter::cast);
+            Page<ClientOrm> pageClientOrm =  repository.findAllByStatusAtivo(Pageable.ofSize(pageSize).withPage(pageNumber));
+
+            return ClientRepositoryAdapter.cast(pageClientOrm);
         } catch (Exception ex) {
-            LOG.error("Erro ao recuperar clientes: {} o erro aconteceu na data/hora: {}",
-                    ex.getMessage(), LocalDateTime.now());
+            LOG.error("Erro ao recuperar clientes: {} o erro aconteceu na data/hora: {}", ex.getMessage(), LocalDateTime.now());
             throw new InternalServerException(ex);
         }
     }
@@ -41,11 +43,13 @@ public class ClientRepositoryImpl implements ClientRepository {
     @Override
     public Client save(Client client) {
         try {
+            LOG.info("Salvando cliente na data/hora: {}", LocalDateTime.now());
+
             ClientOrm orm = ClientRepositoryAdapter.cast(client);
+
             return ClientRepositoryAdapter.cast(repository.save(orm));
         } catch (Exception ex) {
-            LOG.error("Erro ao salvar cliente: {} o erro aconteceu na data/hora: {}",
-                    ex.getMessage(), LocalDateTime.now());
+            LOG.error("Erro ao salvar cliente: {} o erro aconteceu na data/hora: {}", ex.getMessage(), LocalDateTime.now());
             throw new InternalServerException(ex);
         }
     }
@@ -53,17 +57,20 @@ public class ClientRepositoryImpl implements ClientRepository {
     @Override
     public Client findById(final String id) {
         try {
+            LOG.info("Procurando cliente por id: {} na data/hora: {}", id, LocalDateTime.now());
+
             Optional<ClientOrm> optional = repository.findById(id);
+
             if (optional.isEmpty()) {
                 throw new NotFoundException("Cliente nao encontrado");
             }
-            return ClientRepositoryAdapter.cast(
-                    repository.save(optional.get()));
+
+            return ClientRepositoryAdapter.cast(repository.save(optional.get()));
         } catch (NotFoundException ex) {
+            LOG.error("Cliente nao encontrado por id: {} o erro aconteceu na data/hora: {}", ex.getMessage(), LocalDateTime.now());
             throw ex;
         } catch (Exception ex) {
-            LOG.error("Erro ao procurar cliente por id: {} o erro aconteceu na data/hora: {}",
-                    ex.getMessage(), LocalDateTime.now());
+            LOG.error("Erro ao procurar cliente por id: {} o erro aconteceu na data/hora: {}", ex.getMessage(), LocalDateTime.now());
             throw new InternalServerException(ex);
         }
     }
@@ -71,12 +78,14 @@ public class ClientRepositoryImpl implements ClientRepository {
     @Override
     public void delete(final String id) {
         try {
+            LOG.info("Deletando cliente por id: {} na data/hora: {}", id, LocalDateTime.now());
+
             repository.deleteById(findById(id).id());
         } catch (NotFoundException ex) {
+            LOG.error("Cliente nao encontrado para deletar: {} o erro aconteceu na data/hora: {}", ex.getMessage(), LocalDateTime.now());
             throw ex;
         } catch (Exception ex) {
-            LOG.error("Erro ao deletar cliente: {} o erro aconteceu na data/hora: {}",
-                    ex.getMessage(), LocalDateTime.now());
+            LOG.error("Erro ao deletar cliente: {} o erro aconteceu na data/hora: {}", ex.getMessage(), LocalDateTime.now());
             throw new InternalServerException(ex);
         }
     }

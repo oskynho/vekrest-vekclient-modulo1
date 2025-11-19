@@ -74,3 +74,24 @@ services:
       - "9000:9000"
       - "12201:12201/udp"
     restart: on-failure
+
+#  vekclient:
+#    image: vekrest/vekclient:latest
+#    hostname: vekclient
+#    container_name: vekclient
+#    environment:
+#      SERVER_PORT: 8082
+#      REDIS_HOST: redis
+#      REDIS_PORT: 6379
+#      MONGODB_URI: mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000
+#    ports:
+#        - "8082:8082"
+#    depends_on:
+#      mongodb:
+#        condition: service_healthy
+#      opensearch:
+#        condition: service_healthy
+#      graylog:
+#        condition: service_started
+#      redis:
+#        condition: service_healthy
