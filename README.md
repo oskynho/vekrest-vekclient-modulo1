@@ -16,7 +16,7 @@ Ele foi desenvolvido como a entrega do 1° módulo do projeto completo. Para o 1
 
 ---
 
-## 1.1🧩 Containers necessários para rodar a aplicação:
+## 1.1 🧩 Containers necessários para rodar a aplicação:
 
 | Container | Imagem | Link                                                                                                                                           | 
 |---|---|------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -38,7 +38,7 @@ Ele foi desenvolvido como a entrega do 1° módulo do projeto completo. Para o 1
 
 ---
 
-## 1.3🐳 Como rodar o container
+## 1.3 🐳 Como rodar o container
 
 1️⃣ Para baixar a imagem do Docker Hub:
 ```bash
