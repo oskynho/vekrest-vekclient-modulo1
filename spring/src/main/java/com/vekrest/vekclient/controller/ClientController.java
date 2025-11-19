@@ -5,6 +5,7 @@ import com.vekrest.entity.Pagination;
 import com.vekrest.service.ClientService;
 import com.vekrest.vekclient.controller.adapter.ClientControllerAdapter;
 import com.vekrest.vekclient.controller.dto.request.ClientRequest;
+import com.vekrest.vekclient.controller.dto.request.ClientUpdateRequest;
 import com.vekrest.vekclient.controller.dto.response.ClientResponse;
 import jakarta.validation.Valid;
 import org.springframework.cache.annotation.Cacheable;
@@ -31,9 +32,19 @@ public class ClientController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/vekclient/client")
-    public ClientResponse save(@Valid @RequestBody ClientRequest request) {
+    public ClientResponse register(@Valid @RequestBody ClientRequest request) {
         Client client = ClientControllerAdapter.cast(request);
         return ClientControllerAdapter.cast(service.register(client));
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/vekclient/client/{id}")
+    public ClientResponse update(
+            @PathVariable("id") String id,
+            @Valid @RequestBody ClientUpdateRequest request
+    ) {
+        Client client = ClientControllerAdapter.cast(request);
+        return ClientControllerAdapter.cast(service.update(id, client));
     }
 
     @ResponseStatus(HttpStatus.OK)

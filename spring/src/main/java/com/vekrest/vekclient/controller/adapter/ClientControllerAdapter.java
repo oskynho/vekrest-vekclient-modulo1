@@ -5,6 +5,7 @@ import com.vekrest.entity.Client;
 import com.vekrest.entity.State;
 import com.vekrest.entity.Status;
 import com.vekrest.vekclient.controller.dto.request.ClientRequest;
+import com.vekrest.vekclient.controller.dto.request.ClientUpdateRequest;
 import com.vekrest.vekclient.controller.dto.response.ClientResponse;
 import java.util.UUID;
 
@@ -32,6 +33,19 @@ public class ClientControllerAdapter {
                     State.porUf(request.address().state().toString())
                 ),
                 Status.ATIVO
+        );
+    }
+
+    public static Client cast(ClientUpdateRequest request) {
+        return new Client(
+                null,
+                request.name(),
+                request.birth(),
+                request.address() != null ? new Address(
+                        request.address().cep(),
+                        State.porUf(request.address().state().toString())
+                ) : null,
+                null
         );
     }
 }

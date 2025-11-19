@@ -26,6 +26,18 @@ public class ClientService {
         }
     }
 
+    public Client update(final String id, Client client) {
+        Client updateClient = repository.findById(id);
+
+        return save(updateClient.id(), new Client(
+                id,
+                client.name() != null ? client.name() : updateClient.name(),
+                client.birth() != null ? client.birth() : updateClient.birth(),
+                client.address() != null ? client.address() : updateClient.address(),
+                client.status() != null ? client.status() : updateClient.status()
+        ));
+    }
+
     private Client save(final String id, Client client) {
         try {
             return repository.save(new Client(
