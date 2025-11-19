@@ -1,4 +1,4 @@
-# 🧬 Projeto VekRest - VekClient
+# 🧬 Projeto VekRest - VekClient - Módulo 1
 
 Este é o cliente do projeto VekRest, um CRUD de clientes utilizando MongoDB, Redis, OpenSearch e Graylog. Este projeto utiliza conteinerização em **Docker**, build **Maven** e **Spring Boot Java**.  
 
