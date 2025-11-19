@@ -29,6 +29,8 @@ public class ClientRepositoryImpl implements ClientRepository {
     @Override
     public Pagination<Client> getAll(final int pageNumber, final int pageSize) {
         try {
+            LOG.info("Recuperando todos os clientes na data/hora: {}", LocalDateTime.now());
+
             Page<ClientOrm> pageClientOrm =  repository.findAllByStatusAtivo(Pageable.ofSize(pageSize).withPage(pageNumber));
 
             return ClientRepositoryAdapter.cast(pageClientOrm);
@@ -41,6 +43,8 @@ public class ClientRepositoryImpl implements ClientRepository {
     @Override
     public Client save(Client client) {
         try {
+            LOG.info("Salvando cliente na data/hora: {}", LocalDateTime.now());
+
             ClientOrm orm = ClientRepositoryAdapter.cast(client);
 
             return ClientRepositoryAdapter.cast(repository.save(orm));
@@ -53,6 +57,8 @@ public class ClientRepositoryImpl implements ClientRepository {
     @Override
     public Client findById(final String id) {
         try {
+            LOG.info("Procurando cliente por id: {} na data/hora: {}", id, LocalDateTime.now());
+
             Optional<ClientOrm> optional = repository.findById(id);
 
             if (optional.isEmpty()) {
@@ -72,6 +78,8 @@ public class ClientRepositoryImpl implements ClientRepository {
     @Override
     public void delete(final String id) {
         try {
+            LOG.info("Deletando cliente por id: {} na data/hora: {}", id, LocalDateTime.now());
+
             repository.deleteById(findById(id).id());
         } catch (NotFoundException ex) {
             LOG.error("Cliente nao encontrado para deletar: {} o erro aconteceu na data/hora: {}", ex.getMessage(), LocalDateTime.now());
