@@ -14,7 +14,7 @@
 	<packaging>pom</packaging>
 	<name>vekclient</name>
 	<description>VekMódulo Cliente de cadastro de Pessoas</description>
-	<url/>
+	<url>https://github.com/VekRest/vekrest-vekclient-modulo1</url>
 	<licenses>
 		<license>
 				<name>GPL-3.0</name>
