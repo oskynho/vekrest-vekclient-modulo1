@@ -11,6 +11,7 @@
     <packaging>jar</packaging>
 
     <name>domain</name>
+    <description>Módulo de domínio do VekRest VekClient</description>
     <url>https://github.com/VekRest/vekrest-vekclient-modulo1</url>
 
     <licenses>
