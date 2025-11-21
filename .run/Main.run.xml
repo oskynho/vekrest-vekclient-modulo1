@@ -6,7 +6,7 @@
       <option value="$PROJECT_DIR$/spring/src/main/resources/application.properties" />
       <option value="$PROJECT_DIR$/spring/src/main/resources/application-local.properties" />
     </option>
-    <option name="MAIN_CLASS_NAME" value="com.vekrest.vekclient.VekclientApplication" />
+    <option name="MAIN_CLASS_NAME" value="vekclient.com.vekrest.vekclient.VekclientApplication" />
     <module name="spring" />
     <method v="2">
       <option name="Make" enabled="true" />
