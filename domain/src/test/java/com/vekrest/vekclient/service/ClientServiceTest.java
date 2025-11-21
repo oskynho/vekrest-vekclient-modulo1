@@ -1,6 +1,5 @@
 package com.vekrest.vekclient.service;
 
-import com.vekrest.entity.*;
 import com.vekrest.vekclient.entity.*;
 import com.vekrest.vekclient.exception.NotFoundException;
 import com.vekrest.vekclient.repository.ClientRepository;

@@ -1,6 +1,5 @@
 package com.vekrest.vekclient.vekclient.controller.advice;
 
-import com.vekrest.exception.*;
 import com.vekrest.vekclient.exception.BadRequestException;
 import com.vekrest.vekclient.exception.InternalServerException;
 import com.vekrest.vekclient.exception.NotFoundException;
