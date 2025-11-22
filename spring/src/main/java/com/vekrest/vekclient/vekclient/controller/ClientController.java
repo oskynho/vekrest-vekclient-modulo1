@@ -23,11 +23,11 @@ public class ClientController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/client")
-    public Pagination<Client> getAll(
+    public Pagination<ClientResponse> getAll(
             @RequestParam(value = "page", defaultValue = "0") int pageNumber,
             @RequestParam(value = "size", defaultValue = "10") int pageSize
     ) {
-        return service.getAll(pageNumber, pageSize);
+        return ClientControllerAdapter.cast(service.getAll(pageNumber, pageSize));
     }
 
     @ResponseStatus(HttpStatus.CREATED)

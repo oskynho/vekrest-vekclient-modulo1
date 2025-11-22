@@ -1,12 +1,11 @@
 package com.vekrest.vekclient.vekclient.controller.adapter;
 
-import com.vekrest.vekclient.entity.Address;
-import com.vekrest.vekclient.entity.Client;
-import com.vekrest.vekclient.entity.State;
-import com.vekrest.vekclient.entity.Status;
+import com.vekrest.vekclient.entity.*;
 import com.vekrest.vekclient.vekclient.controller.dto.request.ClientRequest;
 import com.vekrest.vekclient.vekclient.controller.dto.request.ClientUpdateRequest;
 import com.vekrest.vekclient.vekclient.controller.dto.response.ClientResponse;
+
+import java.util.List;
 import java.util.UUID;
 
 public class ClientControllerAdapter {
@@ -18,8 +17,7 @@ public class ClientControllerAdapter {
                 client.id(),
                 client.name(),
                 client.birth().toString(),
-                client.address(),
-                client.status().getDescricao()
+                client.address()
         );
     }
 
@@ -46,6 +44,18 @@ public class ClientControllerAdapter {
                         State.porUf(request.address().state().toString())
                 ) : null,
                 null
+        );
+    }
+
+    public static Pagination<ClientResponse> cast(Pagination<Client> pagination) {
+        List<Client> clients = (List<Client>) pagination.content;
+
+        return new Pagination<ClientResponse>(
+                clients.stream().map(ClientControllerAdapter::cast).toList(),
+                pagination.pageNumber,
+                pagination.pageSize,
+                pagination.totalElements,
+                pagination.totalPages
         );
     }
 }
