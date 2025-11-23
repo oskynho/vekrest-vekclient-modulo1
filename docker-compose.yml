@@ -84,6 +84,8 @@ services:
 #      REDIS_HOST: redis
 #      REDIS_PORT: 6379
 #      MONGODB_URI: mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000
+#      GRAYLOG_HOST: graylog
+#      GRAYLOG_PORT: 12201
 #    ports:
 #        - "8082:8082"
 #    depends_on:
