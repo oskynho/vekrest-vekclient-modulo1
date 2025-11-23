@@ -32,12 +32,14 @@ Cliente VekRest: CRUD em Spring Boot com Docker, MongoDB, Redis, OpenSearch e Gr
 
 ## 1.2 ⚙ Variáveis de ambiente necessárias para rodar o container:
 
-| Variável                  | Descrição                                  | Exemplo                      |
-|---------------------------|--------------------------------------------|------------------------------|
-| `SERVER_PORT`             | Porta onde a aplicação irá rodar           | `8082`                      |
-| `REDIS_HOST`              | Host do Redis                              | `redis`                     |
-| `REDIS_PORT`              | Porta do Redis                             | `6379`                      |
-| `MONGODB_URI`             | URI de conexão do MongoDB                  | `mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000` |
+| Variável          | Descrição                       | Exemplo                                                                                |
+|-------------------|---------------------------------|----------------------------------------------------------------------------------------|
+| `SERVER_PORT`     | Porta onde a aplicação irá rodar | `8082`                                                                                 |
+| `REDIS_HOST`      | Host do Redis                   | `redis`                                                                                |
+| `REDIS_PORT`      | Porta do Redis                  | `6379`                                                                                 |
+| `MONGODB_URI`     | URI de conexão do MongoDB       | `mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000` |
+| `GRAYLOG_HOST`    | Endereço do Graylog             | `graylog`                                                                              |
+| `GRAYLOG_PORT`    | Porta do Graylog                | `12201`                                                                                |
 
 ---
 
@@ -56,6 +58,8 @@ docker run -d \
     -e REDIS_HOST=redis \
     -e REDIS_PORT=6379 \
     -e MONGODB_URI="mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000" \
+    -e GRAYLOG_HOST=graylog \
+    -e GRAYLOG_PORT=12201 \
     -p 8082:8082 \
     vek03/vekrest-vekclient:latest
 ```
