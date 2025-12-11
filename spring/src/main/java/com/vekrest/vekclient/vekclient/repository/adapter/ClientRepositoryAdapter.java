@@ -46,7 +46,7 @@ public class ClientRepositoryAdapter {
     }
 
     public static Pagination<Client> cast(Page<ClientOrm> pageClientOrm) {
-        return new Pagination<Client>(
+        return new Pagination<>(
                 pageClientOrm.getContent().stream().map(ClientRepositoryAdapter::cast).toList(),
                 pageClientOrm.getPageable().getPageNumber(),
                 pageClientOrm.getPageable().getPageSize(),

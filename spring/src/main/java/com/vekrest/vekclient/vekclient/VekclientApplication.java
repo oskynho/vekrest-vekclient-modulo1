@@ -17,7 +17,7 @@ public class VekclientApplication implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
 		LOG.info("VEKREST -> VEKCLIENT - INICIALIZADO COM SUCESSO!");
 	}
 }

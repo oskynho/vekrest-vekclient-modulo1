@@ -50,7 +50,7 @@ public class ClientControllerAdapter {
     public static Pagination<ClientResponse> cast(Pagination<Client> pagination) {
         List<Client> clients = (List<Client>) pagination.content;
 
-        return new Pagination<ClientResponse>(
+        return new Pagination<>(
                 clients.stream().map(ClientControllerAdapter::cast).toList(),
                 pagination.pageNumber,
                 pagination.pageSize,
